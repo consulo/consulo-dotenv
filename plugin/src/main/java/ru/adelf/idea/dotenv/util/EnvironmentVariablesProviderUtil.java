@@ -1,15 +1,15 @@
 package ru.adelf.idea.dotenv.util;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
+import consulo.component.extension.ExtensionPointName;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesProvider;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesUsagesProvider;
 
 public final class EnvironmentVariablesProviderUtil {
     private static final ExtensionPointName<EnvironmentVariablesProvider> providersEP
-            = new ExtensionPointName<>("ru.adelf.idea.dotenv.environmentVariablesProvider");
+            = new ExtensionPointName<>(EnvironmentVariablesProvider.class);
 
     private static final ExtensionPointName<EnvironmentVariablesUsagesProvider> usageProvidersEP
-            = new ExtensionPointName<>("ru.adelf.idea.dotenv.environmentVariablesUsagesProvider");
+            = new ExtensionPointName<>(EnvironmentVariablesUsagesProvider.class);
 
     public static EnvironmentVariablesProvider[] getEnvVariablesProviders() {
         return providersEP.getExtensions();

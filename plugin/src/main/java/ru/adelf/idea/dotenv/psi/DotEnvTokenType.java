@@ -1,6 +1,6 @@
 package ru.adelf.idea.dotenv.psi;
 
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvLanguage;

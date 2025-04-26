@@ -1,7 +1,7 @@
 {
   parserClass="ru.adelf.idea.dotenv.parser.DotEnvParser"
 
-  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  extends="consulo.language.impl.psi.ASTWrapperPsiElement"
 
   psiClassPrefix="DotEnv"
   psiImplClassSuffix="Impl"
@@ -11,6 +11,8 @@
   elementTypeHolderClass="ru.adelf.idea.dotenv.psi.DotEnvTypes"
   elementTypeClass="ru.adelf.idea.dotenv.psi.DotEnvElementType"
   tokenTypeClass="ru.adelf.idea.dotenv.psi.DotEnvTokenType"
+
+  version="3"
 
   psiImplUtilClass="ru.adelf.idea.dotenv.psi.DotEnvPsiUtil"
 }
@@ -22,7 +24,6 @@ private item_ ::= (EXPORT? property|COMMENT|CRLF)
 key ::= KEY_CHARS
 nested_variable_key ::= KEY_CHARS {
     name="property key"
-    implements="com.intellij.model.psi.PsiExternalReferenceHost"
 }
 
 private quoted_value ::= (NESTED_VARIABLE_START nested_variable_key? NESTED_VARIABLE_END) | VALUE_CHARS

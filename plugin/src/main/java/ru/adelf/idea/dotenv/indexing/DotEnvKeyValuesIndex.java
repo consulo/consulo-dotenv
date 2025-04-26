@@ -1,9 +1,14 @@
 package ru.adelf.idea.dotenv.indexing;
 
-import com.intellij.util.indexing.*;
-import com.intellij.util.io.DataExternalizer;
-import com.intellij.util.io.EnumeratorStringDescriptor;
-import com.intellij.util.io.KeyDescriptor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.index.io.DataIndexer;
+import consulo.index.io.EnumeratorStringDescriptor;
+import consulo.index.io.ID;
+import consulo.index.io.KeyDescriptor;
+import consulo.index.io.data.DataExternalizer;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.FileBasedIndexExtension;
+import consulo.language.psi.stub.FileContent;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesProvider;
@@ -13,6 +18,7 @@ import ru.adelf.idea.dotenv.util.EnvironmentVariablesProviderUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+@ExtensionImpl
 public class DotEnvKeyValuesIndex extends FileBasedIndexExtension<String, String> {
 
     public static final ID<String, String> KEY = ID.create("ru.adelf.idea.php.dotenv.keyValues");
@@ -55,7 +61,7 @@ public class DotEnvKeyValuesIndex extends FileBasedIndexExtension<String, String
 
     @Override
     public @NotNull FileBasedIndex.InputFilter getInputFilter() {
-        return file -> {
+        return (project, file) -> {
             for (EnvironmentVariablesProvider provider : EnvironmentVariablesProviderUtil.getEnvVariablesProviders()) {
                 if (provider.acceptFile(file).isAccepted()) return true;
             }

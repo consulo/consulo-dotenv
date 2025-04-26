@@ -1,34 +1,41 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.util.TextRange;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.ast.TokenType;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.impl.psi.PsiWhiteSpaceImpl;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.DotEnvFactory;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
 import ru.adelf.idea.dotenv.psi.DotEnvValue;
 import ru.adelf.idea.dotenv.psi.impl.DotEnvValueImpl;
 
-public class TrailingWhitespaceInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class TrailingWhitespaceInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.name.value.has.trailing.whitespace");
+        return DotEnvLocalize.inspectionNameValueHasTrailingWhitespace().get();
     }
 
     @Override
-    public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    @Nullable
+    public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         if (!(file instanceof DotEnvFile)) {
             return null;
         }
@@ -37,13 +44,13 @@ public class TrailingWhitespaceInspection extends LocalInspectionTool {
     }
 
     private static @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         PsiTreeUtil.findChildrenOfType(file, DotEnvValue.class).forEach(dotEnvValue -> {
             if (dotEnvValue.getText().matches(".*[ \\t]+")) {
                 problemsHolder.registerProblem(dotEnvValue,
                     new TextRange(dotEnvValue.getText().stripTrailing().length(), dotEnvValue.getText().length()),
-                                               DotEnvBundle.message("inspection.message.line.has.trailing.whitespace"),
+                    DotEnvLocalize.inspectionMessageLineHasTrailingWhitespace().get(),
                     new TrailingWhitespaceInspection.RemoveTrailingWhitespaceQuickFix()
                 );
             }
@@ -52,7 +59,7 @@ public class TrailingWhitespaceInspection extends LocalInspectionTool {
         PsiTreeUtil.findChildrenOfType(file, PsiWhiteSpaceImpl.class).forEach(whiteSpace -> {
             if (whiteSpace.getText().matches("\\s*[ \\t]\\n\\s*")) {
                 problemsHolder.registerProblem(whiteSpace,
-                                               DotEnvBundle.message("inspection.message.line.has.trailing.whitespace"),
+                    DotEnvLocalize.inspectionMessageLineHasTrailingWhitespace().get(),
                     new TrailingWhitespaceInspection.RemoveTrailingWhitespaceQuickFix()
                 );
             }
@@ -65,7 +72,7 @@ public class TrailingWhitespaceInspection extends LocalInspectionTool {
 
         @Override
         public @NotNull String getName() {
-            return DotEnvBundle.message("intention.name.remove.trailing.whitespace");
+            return DotEnvLocalize.intentionNameRemoveTrailingWhitespace().get();
         }
 
         @Override
@@ -77,12 +84,14 @@ public class TrailingWhitespaceInspection extends LocalInspectionTool {
                     PsiElement newPsiElement = DotEnvFactory.createFromText(project, DotEnvTypes.VALUE,
                         "DUMMY_KEY=" + psiElement.getText().stripTrailing());
                     psiElement.replace(newPsiElement);
-                } else if (psiElement instanceof PsiWhiteSpaceImpl) {
+                }
+                else if (psiElement instanceof PsiWhiteSpaceImpl) {
                     PsiElement newPsiElement = DotEnvFactory.createFromText(project, TokenType.WHITE_SPACE,
                         "DUMMY_KEY='VALUE'" + psiElement.getText().replaceAll("[ \\t]*\\n", "\n"));
                     psiElement.replace(newPsiElement);
                 }
-            } catch (IncorrectOperationException e) {
+            }
+            catch (IncorrectOperationException e) {
                 Logger.getInstance(IncorrectDelimiterInspection.class).error(e);
             }
         }

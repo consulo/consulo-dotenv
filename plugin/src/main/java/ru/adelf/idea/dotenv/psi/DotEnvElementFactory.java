@@ -1,8 +1,8 @@
 package ru.adelf.idea.dotenv.psi;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiFileFactory;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.psi.PsiFileFactory;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
 import ru.adelf.idea.dotenv.DotEnvFileType;
 
 final class DotEnvElementFactory {

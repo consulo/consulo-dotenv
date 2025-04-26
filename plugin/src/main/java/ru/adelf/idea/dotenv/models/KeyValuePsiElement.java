@@ -1,7 +1,7 @@
 package ru.adelf.idea.dotenv.models;
 
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.util.lang.StringUtil;
 
 /**
  * Environment key and value PsiElement representation with key and value values.

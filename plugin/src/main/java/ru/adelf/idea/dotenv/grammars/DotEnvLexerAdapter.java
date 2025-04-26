@@ -1,6 +1,6 @@
 package ru.adelf.idea.dotenv.grammars;
 
-import com.intellij.lexer.FlexAdapter;
+import consulo.language.lexer.FlexAdapter;
 
 public class DotEnvLexerAdapter extends FlexAdapter {
     public DotEnvLexerAdapter() {

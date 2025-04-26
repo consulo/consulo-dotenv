@@ -1,13 +1,13 @@
 package ru.adelf.idea.dotenv;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Ref;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileFactory;
-import com.intellij.psi.PsiRecursiveElementWalkingVisitor;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiFileFactory;
+import consulo.language.psi.PsiRecursiveElementWalkingVisitor;
+import consulo.project.Project;
+import consulo.util.lang.ref.Ref;
 import org.jetbrains.annotations.NotNull;
 
 public final class DotEnvFactory {

@@ -1,14 +1,21 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.ast.TokenType;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.impl.psi.PsiWhiteSpaceImpl;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.DotEnvBundle;
@@ -18,12 +25,13 @@ import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ExtraBlankLineInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class ExtraBlankLineInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.name.extra.blank.line");
+        return DotEnvLocalize.inspectionNameExtraBlankLine().get();
     }
 
     @Override
@@ -32,7 +40,8 @@ public class ExtraBlankLineInspection extends LocalInspectionTool {
     }
 
     @Override
-    public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    @Nullable
+    public ProblemDescriptor [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         if (!(file instanceof DotEnvFile)) {
             return null;
         }
@@ -41,7 +50,7 @@ public class ExtraBlankLineInspection extends LocalInspectionTool {
     }
 
     private static @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         PsiTreeUtil.findChildrenOfType(file, PsiWhiteSpaceImpl.class).forEach(whiteSpace -> {
             Pattern pattern = Pattern.compile("\r\n|\r|\n");
@@ -53,7 +62,7 @@ public class ExtraBlankLineInspection extends LocalInspectionTool {
 
             if (count > 2) {
                 problemsHolder.registerProblem(whiteSpace,
-                                               DotEnvBundle.message("inspection.message.only.one.extra.line.allowed.between.properties"),
+                    DotEnvLocalize.inspectionMessageOnlyOneExtraLineAllowedBetweenProperties().get(),
                     new RemoveExtraBlankLineQuickFix());
             }
         });
@@ -65,7 +74,7 @@ public class ExtraBlankLineInspection extends LocalInspectionTool {
 
         @Override
         public @NotNull String getName() {
-            return DotEnvBundle.message("intention.name.remove.extra.blank.line");
+            return DotEnvLocalize.intentionNameRemoveExtraBlankLine().get();
         }
 
         @Override

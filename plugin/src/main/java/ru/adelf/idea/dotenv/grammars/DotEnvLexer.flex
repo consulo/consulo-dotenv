@@ -1,9 +1,9 @@
 package ru.adelf.idea.dotenv.grammars;
 
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.lexer.FlexLexer;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
-import com.intellij.psi.TokenType;
 
 %%
 

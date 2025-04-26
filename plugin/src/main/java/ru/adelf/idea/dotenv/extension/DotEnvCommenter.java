@@ -1,15 +1,20 @@
 package ru.adelf.idea.dotenv.extension;
 
-import com.intellij.codeInsight.generation.CommenterDataHolder;
-import com.intellij.codeInsight.generation.SelfManagingCommenter;
-import com.intellij.lang.Commenter;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.text.CharArrayUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.Document;
+import consulo.document.util.TextRange;
+import consulo.language.Commenter;
+import consulo.language.CommenterDataHolder;
+import consulo.language.Language;
+import consulo.language.SelfManagingCommenter;
+import consulo.language.psi.PsiFile;
+import consulo.util.lang.CharArrayUtil;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.adelf.idea.dotenv.DotEnvLanguage;
 
+@ExtensionImpl
 public class DotEnvCommenter implements Commenter, SelfManagingCommenter<CommenterDataHolder> {
     private static final String HASH_COMMENT_PREFIX = "#";
 
@@ -97,5 +102,11 @@ public class DotEnvCommenter implements Commenter, SelfManagingCommenter<Comment
     @Override
     public @NotNull TextRange insertBlockComment(int startOffset, int endOffset, Document document, CommenterDataHolder data) {
         throw new UnsupportedOperationException();
+    }
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return DotEnvLanguage.INSTANCE;
     }
 }

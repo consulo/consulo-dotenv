@@ -1,6 +1,6 @@
 package ru.adelf.idea.dotenv.models;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 
 /**
  * Environment key usage PsiElement representation with key

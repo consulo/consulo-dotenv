@@ -1,27 +1,30 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.InspectionManager;
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvKey;
 
-public class LeadingCharacterInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class LeadingCharacterInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.name.invalid.leading.character");
+        return DotEnvLocalize.inspectionNameInvalidLeadingCharacter().get();
     }
-    
+
     @Override
-    public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    @Nullable
+    public ProblemDescriptor [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         if (!(file instanceof DotEnvFile)) {
             return null;
         }
@@ -30,14 +33,14 @@ public class LeadingCharacterInspection extends LocalInspectionTool {
     }
 
     private static @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         PsiTreeUtil.findChildrenOfType(file, DotEnvKey.class).forEach(dotEnvKey -> {
             // Also accepts lower case chars as keys with lower case chars are handled by another inspection
             // same for dash (-> IncorrectDelimiter
-            if (!dotEnvKey.getText().matches("[A-Za-z_-].*")){
+            if (!dotEnvKey.getText().matches("[A-Za-z_-].*")) {
                 problemsHolder.registerProblem(dotEnvKey,
-                                               DotEnvBundle.message("inspection.message.invalid.first.char.for.key.only.z.are.allowed"));
+                    DotEnvLocalize.inspectionMessageInvalidFirstCharForKeyOnlyZAreAllowed().get());
             }
         });
 

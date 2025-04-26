@@ -42,5 +42,6 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>plugin</module>
     </modules>
 </project>

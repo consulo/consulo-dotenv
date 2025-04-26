@@ -1,0 +1,70 @@
+enable.environment.variables.completions:
+    text: Enable code completion for environment variables
+hide.values.in.env.files:
+    text: Hide values in .env files
+inspection.message.duplicate.key:
+    text: Duplicate key
+inspection.message.expected.found:
+    text: 'Expected: ''_'' Found: ''-'''
+inspection.message.extra.spaces.surrounding:
+    text: Extra spaces surrounding '='
+inspection.message.invalid.first.char.for.key.only.z.are.allowed:
+    text: Invalid first character for a key. Only A-Z and '_' are allowed.
+inspection.message.key.uses.lowercase.chars.only.keys.with.uppercase.chars.are.allowed:
+    text: Key uses lowercase characters. Only uppercase characters are allowed.
+inspection.message.line.has.trailing.whitespace:
+    text: Line has trailing whitespace.
+inspection.message.only.one.extra.line.allowed.between.properties:
+    text: Only one extra line between properties is allowed
+inspection.message.space.inside.allowed.only.for.quoted.values:
+    text: Space inside is allowed only for quoted values
+intention.name.add.quotes:
+    text: Add quotes
+intention.name.change.to.uppercase:
+    text: Change to uppercase
+intention.name.remove.extra.blank.line:
+    text: Remove extra blank line
+intention.name.remove.spaces.surrounding:
+    text: Remove spaces surrounding '='
+intention.name.remove.trailing.whitespace:
+    text: Remove trailing whitespace
+intention.name.replace.delimiter:
+    text: 'Replace delimiter  '
+label.env.file:
+    text: .env file
+label.check.this.if.you.want.values.to.be.hidden.by.default.br.main.menu.code.folding.actions.can.be.used.to.control.it:
+    text: <html>To toggle between hidden and shown values, use <i>Expand/Collapse</i> shortcuts.</html>
+label.run.file.invalidate.caches.to.update.indices:
+    text: Run File > Invalidate Caches... to update the indexes.
+store.and.complete.values:
+    text: Store environment values in project indexes
+storing.values.in.the.indices.can.be.turned.off.due.to.security.reasons:
+    text: Storing values in indexes can be turned off due to security reasons
+environment.variable:
+    text: Environment variable
+group.dotenv:
+    text: DotEnv
+inspection.name.duplicate.keys:
+    text: Duplicate keys
+inspection.name.space.inside.non.quoted.value:
+    text: Space inside non-quoted value
+inspection.name.extra.blank.line:
+    text: Extra blank line
+inspection.name.incorrect.delimiter:
+    text: Incorrect delimiter
+inspection.name.invalid.leading.character:
+    text: Invalid leading character
+inspection.name.key.uses.lowercase.chars:
+    text: Key uses lowercase characters
+inspection.name.value.has.trailing.whitespace:
+    text: Value has trailing whitespace
+inspection.name.extra.spaces.surrounding:
+    text: Extra spaces surrounding '='
+inspection.name.undefined.nested.variable:
+    text: Reference to nested variable ''{0}'' is undefined
+inspection.name.empty.nested.variable:
+    text: Reference to variable is empty
+inspection.name.nested.variable.outside.double.quotes:
+    text: Nested variables must not appear outside double quotes
+quickfix.name.put.environment.variable.value.inside.quotes:
+    text: Put value inside double quotes

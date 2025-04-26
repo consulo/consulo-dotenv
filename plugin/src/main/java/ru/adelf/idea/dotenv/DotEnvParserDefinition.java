@@ -1,47 +1,57 @@
 package ru.adelf.idea.dotenv;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.PsiParser;
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IFileElementType;
+import consulo.language.ast.TokenSet;
+import consulo.language.file.FileViewProvider;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.ParserDefinition;
+import consulo.language.parser.PsiParser;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.version.LanguageVersion;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.grammars.DotEnvLexerAdapter;
 import ru.adelf.idea.dotenv.parser.DotEnvParser;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
 
+@ExtensionImpl
 public class DotEnvParserDefinition implements ParserDefinition {
     private static final TokenSet WHITE_SPACES = TokenSet.WHITE_SPACE;
     private static final IFileElementType FILE = new IFileElementType(DotEnvLanguage.INSTANCE);
 
+    @Nonnull
     @Override
-    public @NotNull Lexer createLexer(Project project) {
+    public Language getLanguage() {
+        return DotEnvLanguage.INSTANCE;
+    }
+
+    @Override
+    public @NotNull Lexer createLexer(LanguageVersion languageVersion) {
         return new DotEnvLexerAdapter();
     }
 
     @Override
-    public @NotNull TokenSet getWhitespaceTokens() {
+    public @NotNull TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
         return WHITE_SPACES;
     }
 
     @Override
-    public @NotNull TokenSet getCommentTokens() {
+    public @NotNull TokenSet getCommentTokens(LanguageVersion languageVersion) {
         return TokenSet.create(DotEnvTypes.COMMENT);
     }
 
     @Override
-    public @NotNull TokenSet getStringLiteralElements() {
+    public @NotNull TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
         return TokenSet.EMPTY;
     }
 
     @Override
-    public @NotNull PsiParser createParser(final Project project) {
+    public @NotNull PsiParser createParser(LanguageVersion languageVersion) {
         return new DotEnvParser();
     }
 

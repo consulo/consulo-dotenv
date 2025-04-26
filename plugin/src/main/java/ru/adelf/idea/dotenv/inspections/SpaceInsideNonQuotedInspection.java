@@ -1,15 +1,20 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.DotEnvFactory;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
@@ -18,12 +23,13 @@ import ru.adelf.idea.dotenv.psi.DotEnvValue;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class SpaceInsideNonQuotedInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class SpaceInsideNonQuotedInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.name.space.inside.non.quoted.value");
+        return DotEnvLocalize.inspectionNameSpaceInsideNonQuotedValue().get();
     }
 
     private final AddQuotesQuickFix addQuotesQuickFix = new AddQuotesQuickFix();
@@ -34,7 +40,8 @@ public class SpaceInsideNonQuotedInspection extends LocalInspectionTool {
     }
 
     @Override
-    public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    @Nullable
+    public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         if (!(file instanceof DotEnvFile)) {
             return null;
         }
@@ -43,7 +50,7 @@ public class SpaceInsideNonQuotedInspection extends LocalInspectionTool {
     }
 
     private @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         PsiTreeUtil.findChildrenOfType(file, DotEnvValue.class).forEach(dotEnvValue -> {
             // first child VALUE_CHARS -> non quoted value
@@ -51,7 +58,7 @@ public class SpaceInsideNonQuotedInspection extends LocalInspectionTool {
             if(dotEnvValue.getFirstChild().getNode().getElementType() == DotEnvTypes.VALUE_CHARS) {
                 if (dotEnvValue.getText().trim().contains(" ")) {
                     problemsHolder.registerProblem(dotEnvValue,
-                                                   DotEnvBundle.message("inspection.message.space.inside.allowed.only.for.quoted.values"), addQuotesQuickFix);
+                        DotEnvLocalize.inspectionMessageSpaceInsideAllowedOnlyForQuotedValues().get(), addQuotesQuickFix);
                 }
             }
         });
@@ -63,7 +70,7 @@ public class SpaceInsideNonQuotedInspection extends LocalInspectionTool {
 
         @Override
         public @NotNull String getName() {
-            return DotEnvBundle.message("intention.name.add.quotes");
+            return DotEnvLocalize.intentionNameAddQuotes().get();
         }
 
         /**

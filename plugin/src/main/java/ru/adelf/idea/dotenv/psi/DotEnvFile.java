@@ -1,8 +1,8 @@
 package ru.adelf.idea.dotenv.psi;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.FileViewProvider;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.virtualFileSystem.fileType.FileType;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvFileType;
 import ru.adelf.idea.dotenv.DotEnvLanguage;
@@ -22,10 +22,5 @@ public class DotEnvFile extends PsiFileBase {
     @Override
     public String toString() {
         return ".env file";
-    }
-
-    @Override
-    public Icon getIcon(int flags) {
-        return super.getIcon(flags);
     }
 }

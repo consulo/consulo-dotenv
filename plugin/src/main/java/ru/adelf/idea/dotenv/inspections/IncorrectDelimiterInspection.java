@@ -1,12 +1,19 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.logging.Logger;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.DotEnvBundle;
@@ -15,12 +22,13 @@ import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
 import ru.adelf.idea.dotenv.psi.impl.DotEnvKeyImpl;
 
-public class IncorrectDelimiterInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class IncorrectDelimiterInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.name.incorrect.delimiter");
+        return DotEnvLocalize.inspectionNameIncorrectDelimiter().get();
     }
 
     @Override
@@ -38,12 +46,12 @@ public class IncorrectDelimiterInspection extends LocalInspectionTool {
     }
 
     private static @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         PsiTreeUtil.findChildrenOfType(file, DotEnvKeyImpl.class).forEach(key -> {
             if (key.getText().contains("-")) {
                 problemsHolder.registerProblem(key,
-                                               DotEnvBundle.message("inspection.message.expected.found")/*, new ReplaceDelimiterQuickFix()*/);
+                    DotEnvLocalize.inspectionMessageExpectedFound().get()/*, new ReplaceDelimiterQuickFix()*/);
             }
         });
 
@@ -54,7 +62,7 @@ public class IncorrectDelimiterInspection extends LocalInspectionTool {
 
         @Override
         public @NotNull String getName() {
-            return DotEnvBundle.message("intention.name.replace.delimiter");
+            return DotEnvLocalize.intentionNameReplaceDelimiter().get();
         }
 
         @Override

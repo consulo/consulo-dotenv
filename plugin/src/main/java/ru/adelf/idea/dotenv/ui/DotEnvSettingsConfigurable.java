@@ -1,10 +1,10 @@
 package ru.adelf.idea.dotenv.ui;
 
-import com.intellij.openapi.options.Configurable;
-import com.intellij.ui.components.JBLabel;
+import consulo.configurable.Configurable;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.ui.ex.awt.JBLabel;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 
 import javax.swing.*;
@@ -26,25 +26,24 @@ public class DotEnvSettingsConfigurable implements Configurable {
         DotEnvSettings settings = getSettings();
         Border standardBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 
-        completionEnabledCheckbox = new JCheckBox(DotEnvBundle.message("enable.environment.variables.completions"), settings.completionEnabled);
+        completionEnabledCheckbox = new JCheckBox(DotEnvLocalize.enableEnvironmentVariablesCompletions().get(), settings.completionEnabled);
         completionEnabledCheckbox.setBorder(standardBorder);
 
-        storeValuesCheckbox = new JCheckBox(DotEnvBundle.message("store.and.complete.values"), settings.storeValues);
+        storeValuesCheckbox = new JCheckBox(DotEnvLocalize.storeAndCompleteValues().get(), settings.storeValues);
         storeValuesCheckbox.setBorder(standardBorder);
-        storeValuesCheckbox.setToolTipText(DotEnvBundle.message("storing.values.in.the.indices.can.be.turned.off.due.to.security.reasons"));
+        storeValuesCheckbox.setToolTipText(DotEnvLocalize.storingValuesInTheIndicesCanBeTurnedOffDueToSecurityReasons().get());
 
-        JLabel storeValuesInvalidateCachesLabel = new JBLabel(DotEnvBundle.message("label.run.file.invalidate.caches.to.update.indices"));
+        JLabel storeValuesInvalidateCachesLabel = new JBLabel(DotEnvLocalize.labelRunFileInvalidateCachesToUpdateIndices().get());
         storeValuesInvalidateCachesLabel.setBorder(standardBorder);
         storeValuesInvalidateCachesLabel.setVisible(false);
 
         storeValuesCheckbox.addChangeListener(e -> storeValuesInvalidateCachesLabel.setVisible(storeValuesCheckbox.isSelected() != getSettings().storeValues));
 
-        hideValuesCheckbox = new JCheckBox(DotEnvBundle.message("hide.values.in.env.files"), settings.storeValues);
+        hideValuesCheckbox = new JCheckBox(DotEnvLocalize.hideValuesInEnvFiles().get(), settings.storeValues);
         hideValuesCheckbox.setBorder(standardBorder);
 
         JLabel hideValuesLabel = new JBLabel(
-            DotEnvBundle.message(
-                "label.check.this.if.you.want.values.to.be.hidden.by.default.br.main.menu.code.folding.actions.can.be.used.to.control.it"));
+            DotEnvLocalize.labelCheckThisIfYouWantValuesToBeHiddenByDefaultBrMainMenuCodeFoldingActionsCanBeUsedToControlIt().get());
         hideValuesLabel.setBorder(standardBorder);
 
         JPanel rootPanel = new JPanel();

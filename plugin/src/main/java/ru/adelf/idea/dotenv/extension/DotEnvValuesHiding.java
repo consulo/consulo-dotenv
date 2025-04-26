@@ -1,20 +1,25 @@
 package ru.adelf.idea.dotenv.extension;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilderEx;
-import com.intellij.lang.folding.FoldingDescriptor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.dumb.DumbAware;
+import consulo.document.Document;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.folding.FoldingBuilderEx;
+import consulo.language.editor.folding.FoldingDescriptor;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.adelf.idea.dotenv.DotEnvLanguage;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 import ru.adelf.idea.dotenv.psi.DotEnvValue;
 
+@ExtensionImpl
 public class DotEnvValuesHiding extends FoldingBuilderEx implements DumbAware {
     @Override
-    public FoldingDescriptor [] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
+    public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
         if (!DotEnvSettings.getInstance().hideValuesInTheFile) return emptyResult;
 
         return PsiTreeUtil.collectElementsOfType(root, DotEnvValue.class).stream().map(
@@ -37,5 +42,11 @@ public class DotEnvValuesHiding extends FoldingBuilderEx implements DumbAware {
         return true;
     }
 
-    private static final FoldingDescriptor[] emptyResult = FoldingDescriptor.EMPTY_ARRAY;
+    private static final FoldingDescriptor[] emptyResult = FoldingDescriptor.EMPTY;
+
+    @Nonnull
+    @Override
+    public Language getLanguage() {
+        return DotEnvLanguage.INSTANCE;
+    }
 }

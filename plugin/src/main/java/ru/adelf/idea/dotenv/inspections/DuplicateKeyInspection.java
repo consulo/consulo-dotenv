@@ -1,14 +1,16 @@
 package ru.adelf.idea.dotenv.inspections;
 
-import com.intellij.codeInspection.InspectionManager;
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
+import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemsHolder;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.DotEnvPsiElementsVisitor;
 import ru.adelf.idea.dotenv.models.KeyValuePsiElement;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
@@ -18,12 +20,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class DuplicateKeyInspection extends LocalInspectionTool {
+@ExtensionImpl
+public class DuplicateKeyInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
     public @NotNull String getDisplayName() {
-        return DotEnvBundle.message("inspection.message.duplicate.key");
+        return DotEnvLocalize.inspectionMessageDuplicateKey().get();
     }
 
     @Override
@@ -40,11 +43,12 @@ public class DuplicateKeyInspection extends LocalInspectionTool {
         return analyzeFile(file, manager, isOnTheFly).getResultsArray();
     }
 
+    @RequiredReadAction
     private static @NotNull ProblemsHolder analyzeFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         DotEnvPsiElementsVisitor visitor = new DotEnvPsiElementsVisitor();
         file.acceptChildren(visitor);
 
-        ProblemsHolder problemsHolder = new ProblemsHolder(manager, file, isOnTheFly);
+        ProblemsHolder problemsHolder = manager.createProblemsHolder(file, isOnTheFly);
 
         Map<String, PsiElement> existingKeys = new HashMap<>();
         Set<PsiElement> markedElements = new HashSet<>();
@@ -52,11 +56,11 @@ public class DuplicateKeyInspection extends LocalInspectionTool {
             final String key = keyValue.getKey();
 
             if(existingKeys.containsKey(key)) {
-                problemsHolder.registerProblem(keyValue.getElement(), DotEnvBundle.message("inspection.message.duplicate.key"));
+                problemsHolder.registerProblem(keyValue.getElement(), DotEnvLocalize.inspectionMessageDuplicateKey().get());
 
                 PsiElement markedElement = existingKeys.get(key);
                 if(!markedElements.contains(markedElement)) {
-                    problemsHolder.registerProblem(markedElement, DotEnvBundle.message("inspection.message.duplicate.key"));
+                    problemsHolder.registerProblem(markedElement, DotEnvLocalize.inspectionMessageDuplicateKey().get());
                     markedElements.add(markedElement);
                 }
             } else {

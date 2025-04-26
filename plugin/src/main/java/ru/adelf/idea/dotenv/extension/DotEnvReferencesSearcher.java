@@ -1,24 +1,27 @@
 package ru.adelf.idea.dotenv.extension;
 
-import com.intellij.openapi.application.QueryExecutorBase;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.search.SearchRequestCollector;
-import com.intellij.psi.search.SearchScope;
-import com.intellij.psi.search.UsageSearchContext;
-import com.intellij.psi.search.searches.ReferencesSearch;
-import com.intellij.util.Processor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.scope.SearchScope;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.search.ReferencesSearch;
+import consulo.language.psi.search.ReferencesSearchQueryExecutor;
+import consulo.language.psi.search.SearchRequestCollector;
+import consulo.language.psi.search.UsageSearchContext;
+import consulo.project.util.query.QueryExecutorBase;
+import consulo.util.lang.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.psi.DotEnvProperty;
 
-public class DotEnvReferencesSearcher  extends QueryExecutorBase<PsiReference, ReferencesSearch.SearchParameters> {
+import java.util.function.Predicate;
+
+public class DotEnvReferencesSearcher  extends QueryExecutorBase<PsiReference, ReferencesSearch.SearchParameters> implements ReferencesSearchQueryExecutor {
     public DotEnvReferencesSearcher() {
         super(true);
     }
 
     @Override
-    public void processQuery(@NotNull ReferencesSearch.SearchParameters queryParameters, @NotNull Processor<? super PsiReference> consumer) {
+    public void processQuery(@NotNull ReferencesSearch.SearchParameters queryParameters, @NotNull Predicate<? super PsiReference> consumer) {
         PsiElement refElement = queryParameters.getElementToSearch();
         if (!(refElement instanceof DotEnvProperty)) return;
 

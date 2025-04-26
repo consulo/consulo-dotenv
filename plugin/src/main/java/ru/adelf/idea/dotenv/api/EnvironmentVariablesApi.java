@@ -1,14 +1,13 @@
 package ru.adelf.idea.dotenv.api;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.PsiSearchHelper;
-import com.intellij.util.Processor;
-import com.intellij.util.indexing.FileBasedIndex;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.search.PsiSearchHelper;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 import ru.adelf.idea.dotenv.indexing.DotEnvKeyValuesIndex;
@@ -16,6 +15,7 @@ import ru.adelf.idea.dotenv.util.EnvironmentVariablesProviderUtil;
 import ru.adelf.idea.dotenv.util.EnvironmentVariablesUtil;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public final class EnvironmentVariablesApi {
 
@@ -110,7 +110,7 @@ public final class EnvironmentVariablesApi {
 
         PsiSearchHelper searchHelper = PsiSearchHelper.getInstance(project);
 
-        Processor<PsiFile> psiFileProcessor = psiFile -> {
+        Predicate<PsiFile> psiFileProcessor = psiFile -> {
             for (EnvironmentVariablesUsagesProvider provider : EnvironmentVariablesProviderUtil.getEnvVariablesUsagesProviders()) {
                 targets.addAll(EnvironmentVariablesUtil.getUsagesElementsByKey(key, provider.getUsages(psiFile)));
             }
