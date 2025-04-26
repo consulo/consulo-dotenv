@@ -1,0 +1,1 @@
+Initial code from https://github.com/JetBrains/idea-php-dotenv-plugin
