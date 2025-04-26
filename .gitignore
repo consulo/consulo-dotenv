@@ -10,3 +10,6 @@
 /*.ipr
 /*.iws
 /.intellijPlatform
+.consulo
+target/
+plugin/sandbox
