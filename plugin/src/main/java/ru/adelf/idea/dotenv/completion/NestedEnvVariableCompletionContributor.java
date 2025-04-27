@@ -83,7 +83,8 @@ public class NestedEnvVariableCompletionContributor extends CompletionContributo
         private boolean shouldComplete(CompletionParameters parameters) {
             PsiElement original = parameters.getOriginalPosition();
             if (original != null
-                && DOUBLE_QUOTE_CHARACTER.equals(original.getPrevSibling().getText())) {
+                && original.getPrevSibling() instanceof PsiElement prevSib
+                && DOUBLE_QUOTE_CHARACTER.equals(prevSib.getText())) {
                 int offset = parameters.getOffset();
                 CharSequence seq = parameters.getEditor().getDocument().getCharsSequence();
                 return offset < 2 || seq.charAt(offset - 2) != ESCAPE_CHARACTER;

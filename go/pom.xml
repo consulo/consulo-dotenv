@@ -17,13 +17,17 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>consulo</groupId>
-        <artifactId>arch.managment</artifactId>
+        <artifactId>arch.ide.java</artifactId>
         <version>3-SNAPSHOT</version>
         <relativePath/>
     </parent>
+
+    <groupId>consulo.plugin</groupId>
+    <artifactId>ru.adelf.idea.dotenv.go</artifactId>
+    <version>3-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <repositories>
         <repository>
@@ -36,15 +40,32 @@
         </repository>
     </repositories>
 
-    <groupId>consulo.plugin</groupId>
-    <artifactId>ru.adelf.idea.dotenv.parent</artifactId>
-    <version>3-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>consulo.maven</groupId>
+                <artifactId>maven-consulo-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <packaging>
+                        <skip>${dev.mode}</skip>
+                        <version>${build.number}</version>
+                    </packaging>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-    <modules>
-        <module>api</module>
-        <module>java</module>
-        <module>go</module>
-        <module>plugin</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ru.adelf.idea.dotenv.api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>consulo.google.go</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

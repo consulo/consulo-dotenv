@@ -2,10 +2,10 @@ package ru.adelf.idea.dotenv.go;
 
 import com.goide.psi.GoCallExpr;
 import com.goide.psi.GoStringLiteral;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiRecursiveElementWalkingVisitor;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiRecursiveElementWalkingVisitor;
 import org.jetbrains.annotations.NotNull;
-import ru.adelf.idea.dotenv.models.KeyUsagePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyUsagePsiElement;
 
 import java.util.Collection;
 import java.util.HashSet;

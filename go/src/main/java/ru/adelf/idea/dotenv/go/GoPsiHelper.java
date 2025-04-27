@@ -4,7 +4,7 @@ import com.goide.psi.GoCallExpr;
 import com.goide.psi.GoExpression;
 import com.goide.psi.GoReferenceExpression;
 import com.goide.psi.GoStringLiteral;
-import com.goide.psi.impl.GoPsiUtil;
+import consulo.util.lang.ObjectUtil;
 
 import java.util.Map;
 
@@ -25,7 +25,7 @@ final class GoPsiHelper {
      * @return GoStringLiteral
      */
     static GoStringLiteral getEnvironmentGoLiteral(GoCallExpr callExpression) {
-        GoReferenceExpression ref = GoPsiUtil.getCallReference(callExpression);
+        GoReferenceExpression ref = ObjectUtil.tryCast(callExpression.getExpression(), GoReferenceExpression.class);
         if (ref == null) return null;
 
         /*String functionName = StringUtil.toLowerCase(ref.getIdentifier().getText());

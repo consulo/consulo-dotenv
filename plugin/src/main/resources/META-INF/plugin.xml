@@ -13,6 +13,7 @@
     ]]></description>
 
     <depends optional="true">consulo.java</depends>
+    <depends optional="true">consulo.google.go</depends>
 
     <tags>
         <tag>language.extension</tag>

@@ -2,15 +2,17 @@ package ru.adelf.idea.dotenv.go;
 
 import com.goide.GoFileType;
 import com.goide.psi.GoFile;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.psi.PsiFile;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesUsagesProvider;
-import ru.adelf.idea.dotenv.models.KeyUsagePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyUsagePsiElement;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@ExtensionImpl
 public class GoEnvironmentVariablesUsagesProvider implements EnvironmentVariablesUsagesProvider {
     @Override
     public boolean acceptFile(VirtualFile file) {
