@@ -37,7 +37,7 @@ public class DotEnvSettingsConfigurable implements ApplicationConfigurable {
     @Nonnull
     @Override
     public @Nls String getDisplayName() {
-        return ".env";
+        return "Enviroment Variables (.env)";
     }
 
     @RequiredUIAccess
