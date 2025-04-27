@@ -7,15 +7,14 @@ import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvFileType;
 import ru.adelf.idea.dotenv.DotEnvLanguage;
 
-import javax.swing.*;
-
 public class DotEnvFile extends PsiFileBase {
     public DotEnvFile(@NotNull FileViewProvider viewProvider) {
         super(viewProvider, DotEnvLanguage.INSTANCE);
     }
 
     @Override
-    public @NotNull FileType getFileType() {
+    @NotNull
+    public FileType getFileType() {
         return DotEnvFileType.INSTANCE;
     }
 
