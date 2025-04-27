@@ -1,8 +1,13 @@
 package ru.adelf.idea.dotenv.ui;
 
-import consulo.configurable.Configurable;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.ApplicationConfigurable;
+import consulo.configurable.StandardConfigurableIds;
+import consulo.disposer.Disposable;
 import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.ex.awt.JBLabel;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.DotEnvSettings;
@@ -10,19 +15,34 @@ import ru.adelf.idea.dotenv.DotEnvSettings;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class DotEnvSettingsConfigurable implements Configurable {
+@ExtensionImpl
+public class DotEnvSettingsConfigurable implements ApplicationConfigurable {
 
     private JCheckBox completionEnabledCheckbox;
     private JCheckBox storeValuesCheckbox;
     private JCheckBox hideValuesCheckbox;
 
+    @Nonnull
     @Override
-    public @Nls String getDisplayName() {
-        return "DotEnv";
+    public String getId() {
+        return "dot.env.configurable";
     }
 
+    @Nullable
     @Override
-    public @Nullable JComponent createComponent() {
+    public String getParentId() {
+        return StandardConfigurableIds.EDITOR_GROUP;
+    }
+
+    @Nonnull
+    @Override
+    public @Nls String getDisplayName() {
+        return ".env";
+    }
+
+    @RequiredUIAccess
+    @Override
+    public @Nullable JComponent createComponent(Disposable disposable) {
         DotEnvSettings settings = getSettings();
         Border standardBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 
@@ -57,6 +77,7 @@ public class DotEnvSettingsConfigurable implements Configurable {
         return rootPanel;
     }
 
+    @RequiredUIAccess
     @Override
     public boolean isModified() {
         return !completionEnabledCheckbox.isSelected() == getSettings().completionEnabled
@@ -65,6 +86,7 @@ public class DotEnvSettingsConfigurable implements Configurable {
             ;
     }
 
+    @RequiredUIAccess
     @Override
     public void apply() {
         DotEnvSettings settings = getSettings();
@@ -74,6 +96,7 @@ public class DotEnvSettingsConfigurable implements Configurable {
         settings.hideValuesInTheFile = hideValuesCheckbox.isSelected();
     }
 
+    @RequiredUIAccess
     @Override
     public void reset() {
         completionEnabledCheckbox.setSelected(getSettings().completionEnabled);

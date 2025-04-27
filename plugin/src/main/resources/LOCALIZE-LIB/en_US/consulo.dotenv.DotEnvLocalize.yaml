@@ -60,8 +60,10 @@ inspection.name.value.has.trailing.whitespace:
     text: Value has trailing whitespace
 inspection.name.extra.spaces.surrounding:
     text: Extra spaces surrounding '='
-inspection.name.undefined.nested.variable:
+inspection.name.undefined.nested.0.variable:
     text: Reference to nested variable ''{0}'' is undefined
+inspection.name.undefined.nested.variable:
+    text: Reference to nested variable is undefined
 inspection.name.empty.nested.variable:
     text: Reference to variable is empty
 inspection.name.nested.variable.outside.double.quotes:
