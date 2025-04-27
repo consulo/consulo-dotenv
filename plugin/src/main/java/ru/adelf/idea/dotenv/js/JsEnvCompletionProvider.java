@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesApi;
-import ru.adelf.idea.dotenv.common.BaseEnvCompletionProvider;
+import ru.adelf.idea.dotenv.api.BaseEnvCompletionProvider;
 
 public class JsEnvCompletionProvider extends BaseEnvCompletionProvider implements GotoDeclarationHandler {
     public JsEnvCompletionProvider() {

@@ -1,7 +1,7 @@
 package ru.adelf.idea.dotenv;
 
 import org.jetbrains.annotations.NotNull;
-import ru.adelf.idea.dotenv.models.KeyValuePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyValuePsiElement;
 import ru.adelf.idea.dotenv.psi.DotEnvProperty;
 import ru.adelf.idea.dotenv.psi.DotEnvVisitor;
 

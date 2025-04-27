@@ -82,6 +82,6 @@ public class DotEnvSettingsConfigurable implements Configurable {
     }
 
     private static DotEnvSettings getSettings() {
-        return DotEnvSettings.getInstance();
+        return (DotEnvSettings) DotEnvSettings.getInstance();
     }
 }

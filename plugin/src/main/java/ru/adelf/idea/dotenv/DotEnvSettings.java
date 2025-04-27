@@ -1,7 +1,5 @@
 package ru.adelf.idea.dotenv;
 
-import consulo.annotation.component.ComponentScope;
-import consulo.annotation.component.ServiceAPI;
 import consulo.annotation.component.ServiceImpl;
 import consulo.application.ApplicationManager;
 import consulo.component.persist.PersistentStateComponent;
@@ -12,11 +10,10 @@ import jakarta.inject.Singleton;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@ServiceAPI(ComponentScope.APPLICATION)
 @ServiceImpl
 @Singleton
 @State(name = "DotEnvSettings", storages = {@Storage("dot-env.xml")})
-public class DotEnvSettings implements PersistentStateComponent<DotEnvSettings> {
+public class DotEnvSettings implements PersistentStateComponent<DotEnvSettings>, ru.adelf.idea.dotenv.api.DotEnvSettings {
     public boolean completionEnabled = true;
     public boolean storeValues = true;
 
@@ -32,7 +29,22 @@ public class DotEnvSettings implements PersistentStateComponent<DotEnvSettings> 
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    public static DotEnvSettings getInstance() {
-        return ApplicationManager.getApplication().getService(DotEnvSettings.class);
+    public static ru.adelf.idea.dotenv.api.DotEnvSettings getInstance() {
+        return ApplicationManager.getApplication().getService(ru.adelf.idea.dotenv.api.DotEnvSettings.class);
+    }
+
+    @Override
+    public boolean isCompletionEnabled() {
+        return completionEnabled;
+    }
+
+    @Override
+    public boolean isStoreValues() {
+        return storeValues;
+    }
+
+    @Override
+    public boolean isHideValuesInTheFile() {
+        return hideValuesInTheFile;
     }
 }

@@ -12,16 +12,6 @@ Plugin url: https://plugins.jetbrains.com/plugin/9525
 + docker-compose.yml and Dockerfile environment variables fetching
 + Go to declaration and Find usages of environment variables
 
-## Sponsors
-
-<br>
-
-<a href="https://laravel-idea.com/?utm_source=idea&utm_campaign=env&utm_medium=banner" title="Laravel Idea" target="_blank">
-  <img src="https://laravel-idea.com/img/big_logo.png" alt="Laravel Idea"></a>
-
-The most productive Laravel development environment.
-<a href="https://laravel-idea.com/?utm_source=idea&utm_campaign=env&utm_medium=banner" target="_blank">Learn more</a>.
-
 ## Language packages
 
 PHP dotenv package: https://github.com/vlucas/phpdotenv

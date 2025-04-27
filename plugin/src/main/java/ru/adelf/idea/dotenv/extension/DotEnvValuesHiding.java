@@ -1,5 +1,6 @@
 package ru.adelf.idea.dotenv.extension;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.dumb.DumbAware;
 import consulo.document.Document;
@@ -18,9 +19,11 @@ import ru.adelf.idea.dotenv.psi.DotEnvValue;
 
 @ExtensionImpl
 public class DotEnvValuesHiding extends FoldingBuilderEx implements DumbAware {
+    @RequiredReadAction
+    @Nonnull
     @Override
     public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
-        if (!DotEnvSettings.getInstance().hideValuesInTheFile) return emptyResult;
+        if (!DotEnvSettings.getInstance().isHideValuesInTheFile()) return emptyResult;
 
         return PsiTreeUtil.collectElementsOfType(root, DotEnvValue.class).stream().map(
                 dotEnvValue -> new FoldingDescriptor(
@@ -32,11 +35,13 @@ public class DotEnvValuesHiding extends FoldingBuilderEx implements DumbAware {
         ).toArray(FoldingDescriptor[]::new);
     }
 
+    @RequiredReadAction
     @Override
     public @Nullable String getPlaceholderText(@NotNull ASTNode node) {
         return null;
     }
 
+    @RequiredReadAction
     @Override
     public boolean isCollapsedByDefault(@NotNull ASTNode node) {
         return true;

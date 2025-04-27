@@ -5,7 +5,7 @@ import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementVisitor;
 import org.jetbrains.annotations.NotNull;
-import ru.adelf.idea.dotenv.models.KeyUsagePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyUsagePsiElement;
 
 import java.util.Collection;
 import java.util.HashSet;

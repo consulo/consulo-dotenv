@@ -8,7 +8,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesUsagesProvider;
-import ru.adelf.idea.dotenv.models.KeyUsagePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyUsagePsiElement;
 
 import java.util.Collection;
 import java.util.Collections;

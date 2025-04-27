@@ -12,8 +12,9 @@ import consulo.language.psi.stub.FileContent;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesProvider;
-import ru.adelf.idea.dotenv.models.KeyValuePsiElement;
-import ru.adelf.idea.dotenv.util.EnvironmentVariablesProviderUtil;
+import ru.adelf.idea.dotenv.api.index.DotEnvKeyValuesIndexKey;
+import ru.adelf.idea.dotenv.api.model.KeyValuePsiElement;
+import ru.adelf.idea.dotenv.api.EnvironmentVariablesProviderUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map;
 @ExtensionImpl
 public class DotEnvKeyValuesIndex extends FileBasedIndexExtension<String, String> {
 
-    public static final ID<String, String> KEY = ID.create("ru.adelf.idea.php.dotenv.keyValues");
+    public static final ID<String, String> KEY = DotEnvKeyValuesIndexKey.KEY;
 
     @Override
     public @NotNull ID<String, String> getName() {
@@ -33,7 +34,7 @@ public class DotEnvKeyValuesIndex extends FileBasedIndexExtension<String, String
         return fileContent -> {
             final Map<String, String> map = new HashMap<>();
 
-            boolean storeValues = DotEnvSettings.getInstance().storeValues;
+            boolean storeValues = DotEnvSettings.getInstance().isStoreValues();
 
             for (EnvironmentVariablesProvider provider : EnvironmentVariablesProviderUtil.getEnvVariablesProviders()) {
                 for (KeyValuePsiElement keyValueElement : provider.getElements(fileContent.getPsiFile())) {

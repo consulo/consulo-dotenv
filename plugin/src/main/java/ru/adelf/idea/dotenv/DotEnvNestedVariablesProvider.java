@@ -6,7 +6,7 @@ import consulo.language.psi.PsiFile;
 import consulo.language.psi.PsiRecursiveElementVisitor;
 import consulo.virtualFileSystem.VirtualFile;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesUsagesProvider;
-import ru.adelf.idea.dotenv.models.KeyUsagePsiElement;
+import ru.adelf.idea.dotenv.api.model.KeyUsagePsiElement;
 import ru.adelf.idea.dotenv.psi.DotEnvNestedVariableKey;
 
 import java.util.Collection;

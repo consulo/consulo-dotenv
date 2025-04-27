@@ -5,8 +5,8 @@ import consulo.language.psi.PsiFile;
 import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import ru.adelf.idea.dotenv.api.EnvironmentVariablesProvider;
-import ru.adelf.idea.dotenv.api.FileAcceptResult;
-import ru.adelf.idea.dotenv.models.KeyValuePsiElement;
+import ru.adelf.idea.dotenv.api.model.FileAcceptResult;
+import ru.adelf.idea.dotenv.api.model.KeyValuePsiElement;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 
 import java.util.Collection;
