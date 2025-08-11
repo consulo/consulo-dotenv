@@ -6,6 +6,7 @@ import consulo.configurable.SimpleConfigurableByProperties;
 import consulo.configurable.StandardConfigurableIds;
 import consulo.disposer.Disposable;
 import consulo.dotenv.localize.DotEnvLocalize;
+import consulo.localize.LocalizeValue;
 import consulo.ui.CheckBox;
 import consulo.ui.Component;
 import consulo.ui.HtmlLabel;
@@ -13,7 +14,6 @@ import consulo.ui.Label;
 import consulo.ui.annotation.RequiredUIAccess;
 import consulo.ui.layout.VerticalLayout;
 import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.DotEnvSettings;
 
@@ -33,10 +33,9 @@ public class DotEnvSettingsConfigurable extends SimpleConfigurableByProperties i
 
     @Nonnull
     @Override
-    public @Nls String getDisplayName() {
-        return "Enviroment Variables (.env)";
+    public LocalizeValue getDisplayName() {
+        return DotEnvLocalize.dotenvConfigurableName();
     }
-
 
     @RequiredUIAccess
     @Nonnull
