@@ -59,7 +59,7 @@ intention.name.remove.spaces.surrounding:
 intention.name.remove.trailing.whitespace:
     text: Remove trailing whitespace
 intention.name.replace.delimiter:
-    text: 'Replace delimiter  '
+    text: Replace delimiter
 label.check.this.if.you.want.values.to.be.hidden.by.default.br.main.menu.code.folding.actions.can.be.used.to.control.it:
     text: <html>To toggle between hidden and shown values, use <i>Expand/Collapse</i> shortcuts.</html>
 label.env.file:

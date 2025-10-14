@@ -8,6 +8,7 @@ import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.editor.inspection.scheme.InspectionManager;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
+import consulo.localize.LocalizeValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
@@ -18,8 +19,8 @@ public class LeadingCharacterInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
-    public @NotNull String getDisplayName() {
-        return DotEnvLocalize.inspectionNameInvalidLeadingCharacter().get();
+    public @NotNull LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameInvalidLeadingCharacter();
     }
 
     @Override

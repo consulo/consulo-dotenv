@@ -12,6 +12,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
 import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
@@ -27,8 +28,8 @@ public class IncorrectDelimiterInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
-    public @NotNull String getDisplayName() {
-        return DotEnvLocalize.inspectionNameIncorrectDelimiter().get();
+    public @NotNull LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameIncorrectDelimiter();
     }
 
     @Override
@@ -61,8 +62,8 @@ public class IncorrectDelimiterInspection extends DotEnvLocalInspectionTool {
     private static class ReplaceDelimiterQuickFix implements LocalQuickFix {
 
         @Override
-        public @NotNull String getName() {
-            return DotEnvLocalize.intentionNameReplaceDelimiter().get();
+        public @NotNull LocalizeValue getName() {
+            return DotEnvLocalize.intentionNameReplaceDelimiter();
         }
 
         @Override
@@ -77,11 +78,6 @@ public class IncorrectDelimiterInspection extends DotEnvLocalInspectionTool {
             } catch (IncorrectOperationException e) {
                 Logger.getInstance(IncorrectDelimiterInspection.class).error(e);
             }
-        }
-
-        @Override
-        public @NotNull String getFamilyName() {
-            return getName();
         }
     }
 }

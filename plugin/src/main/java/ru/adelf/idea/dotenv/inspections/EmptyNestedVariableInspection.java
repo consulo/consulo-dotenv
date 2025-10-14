@@ -6,6 +6,7 @@ import consulo.dotenv.localize.DotEnvLocalize;
 import consulo.language.editor.inspection.ProblemsHolder;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
@@ -33,7 +34,7 @@ public class EmptyNestedVariableInspection extends DotEnvLocalInspectionTool {
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return DotEnvLocalize.inspectionNameEmptyNestedVariable().get();
+    public LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameEmptyNestedVariable();
     }
 }

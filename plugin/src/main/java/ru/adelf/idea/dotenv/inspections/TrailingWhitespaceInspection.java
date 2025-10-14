@@ -14,6 +14,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
 import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
@@ -29,8 +30,8 @@ public class TrailingWhitespaceInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
-    public @NotNull String getDisplayName() {
-        return DotEnvLocalize.inspectionNameValueHasTrailingWhitespace().get();
+    public @NotNull LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameValueHasTrailingWhitespace();
     }
 
     @Override
@@ -71,8 +72,8 @@ public class TrailingWhitespaceInspection extends DotEnvLocalInspectionTool {
     private static class RemoveTrailingWhitespaceQuickFix implements LocalQuickFix {
 
         @Override
-        public @NotNull String getName() {
-            return DotEnvLocalize.intentionNameRemoveTrailingWhitespace().get();
+        public @NotNull LocalizeValue getName() {
+            return DotEnvLocalize.intentionNameRemoveTrailingWhitespace();
         }
 
         @Override
@@ -94,11 +95,6 @@ public class TrailingWhitespaceInspection extends DotEnvLocalInspectionTool {
             catch (IncorrectOperationException e) {
                 Logger.getInstance(IncorrectDelimiterInspection.class).error(e);
             }
-        }
-
-        @Override
-        public @NotNull String getFamilyName() {
-            return getName();
         }
     }
 }

@@ -7,6 +7,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
 import consulo.language.psi.scope.GlobalSearchScope;
 import consulo.language.psi.stub.FileBasedIndex;
+import consulo.localize.LocalizeValue;
 import consulo.virtualFileSystem.VirtualFile;
 import jakarta.annotation.Nonnull;
 import ru.adelf.idea.dotenv.indexing.DotEnvKeyValuesIndex;
@@ -47,7 +48,7 @@ public class UndefinedNestedVariableInspection extends DotEnvLocalInspectionTool
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return DotEnvLocalize.inspectionNameUndefinedNestedVariable().get();
+    public LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameUndefinedNestedVariable();
     }
 }

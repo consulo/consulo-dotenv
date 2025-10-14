@@ -10,6 +10,7 @@ import consulo.language.psi.PsiDocumentManager;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiElementVisitor;
 import consulo.language.psi.PsiFile;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
 import consulo.util.lang.StringUtil;
 import jakarta.annotation.Nonnull;
@@ -21,8 +22,8 @@ public class NestedVariableOutsideDoubleQuotesInspection extends DotEnvLocalInsp
 
     @Nonnull
     @Override
-    public String getDisplayName() {
-        return DotEnvLocalize.inspectionNameNestedVariableOutsideDoubleQuotes().get();
+    public LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameNestedVariableOutsideDoubleQuotes();
     }
 
     @Nonnull
@@ -56,8 +57,8 @@ public class NestedVariableOutsideDoubleQuotesInspection extends DotEnvLocalInsp
 
         @Nonnull
         @Override
-        public String getFamilyName() {
-            return DotEnvLocalize.quickfixNamePutEnvironmentVariableValueInsideQuotes().get();
+        public LocalizeValue getName() {
+            return DotEnvLocalize.quickfixNamePutEnvironmentVariableValueInsideQuotes();
         }
 
         @Override

@@ -4,7 +4,6 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
 import consulo.dotenv.localize.DotEnvLocalize;
 import consulo.language.ast.TokenType;
-import consulo.language.editor.inspection.LocalInspectionTool;
 import consulo.language.editor.inspection.LocalQuickFix;
 import consulo.language.editor.inspection.ProblemDescriptor;
 import consulo.language.editor.inspection.ProblemsHolder;
@@ -14,11 +13,11 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
 import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.adelf.idea.dotenv.DotEnvBundle;
 import ru.adelf.idea.dotenv.DotEnvFactory;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 
@@ -30,8 +29,8 @@ public class ExtraBlankLineInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
-    public @NotNull String getDisplayName() {
-        return DotEnvLocalize.inspectionNameExtraBlankLine().get();
+    public @NotNull LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameExtraBlankLine();
     }
 
     @Override
@@ -73,8 +72,8 @@ public class ExtraBlankLineInspection extends DotEnvLocalInspectionTool {
     private static class RemoveExtraBlankLineQuickFix implements LocalQuickFix {
 
         @Override
-        public @NotNull String getName() {
-            return DotEnvLocalize.intentionNameRemoveExtraBlankLine().get();
+        public @NotNull LocalizeValue getName() {
+            return DotEnvLocalize.intentionNameRemoveExtraBlankLine();
         }
 
         @Override
@@ -88,11 +87,6 @@ public class ExtraBlankLineInspection extends DotEnvLocalInspectionTool {
             } catch (IncorrectOperationException e) {
                 Logger.getInstance(ExtraBlankLineInspection.class).error(e);
             }
-        }
-
-        @Override
-        public @NotNull String getFamilyName() {
-            return getName();
         }
     }
 }

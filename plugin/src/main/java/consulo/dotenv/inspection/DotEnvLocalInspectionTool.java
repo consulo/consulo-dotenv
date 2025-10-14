@@ -3,6 +3,7 @@ package consulo.dotenv.inspection;
 import consulo.language.Language;
 import consulo.language.editor.inspection.LocalInspectionTool;
 import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import ru.adelf.idea.dotenv.DotEnvLanguage;
@@ -20,8 +21,8 @@ public abstract class DotEnvLocalInspectionTool extends LocalInspectionTool {
 
     @Nonnull
     @Override
-    public String getGroupDisplayName() {
-        return "";
+    public LocalizeValue getGroupDisplayName() {
+        return LocalizeValue.of();
     }
 
     @Override

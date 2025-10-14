@@ -4,7 +4,6 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.document.util.TextRange;
 import consulo.dotenv.inspection.DotEnvLocalInspectionTool;
 import consulo.dotenv.localize.DotEnvLocalize;
-import consulo.language.editor.inspection.LocalInspectionTool;
 import consulo.language.editor.inspection.LocalQuickFix;
 import consulo.language.editor.inspection.ProblemDescriptor;
 import consulo.language.editor.inspection.ProblemsHolder;
@@ -13,6 +12,7 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.psi.util.PsiTreeUtil;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 import consulo.logging.Logger;
 import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
@@ -29,8 +29,8 @@ public class SpaceAroundSeparatorInspection extends DotEnvLocalInspectionTool {
     // Change the display name within the plugin.xml
     // This needs to be here as otherwise the tests will throw errors.
     @Override
-    public @NotNull String getDisplayName() {
-        return DotEnvLocalize.inspectionNameExtraSpacesSurrounding().get();
+    public @NotNull LocalizeValue getDisplayName() {
+        return DotEnvLocalize.inspectionNameExtraSpacesSurrounding();
     }
 
     @Override
@@ -69,8 +69,8 @@ public class SpaceAroundSeparatorInspection extends DotEnvLocalInspectionTool {
     private static class RemoveSpaceAroundSeparatorQuickFix implements LocalQuickFix {
 
         @Override
-        public @NotNull String getName() {
-            return DotEnvLocalize.intentionNameRemoveSpacesSurrounding().get();
+        public @NotNull LocalizeValue getName() {
+            return DotEnvLocalize.intentionNameRemoveSpacesSurrounding();
         }
 
         @Override
@@ -92,11 +92,6 @@ public class SpaceAroundSeparatorInspection extends DotEnvLocalInspectionTool {
             catch (IncorrectOperationException e) {
                 Logger.getInstance(ExtraBlankLineInspection.class).error(e);
             }
-        }
-
-        @Override
-        public @NotNull String getFamilyName() {
-            return getName();
         }
     }
 }
