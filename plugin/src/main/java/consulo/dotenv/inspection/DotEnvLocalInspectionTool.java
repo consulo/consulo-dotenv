@@ -22,7 +22,7 @@ public abstract class DotEnvLocalInspectionTool extends LocalInspectionTool {
     @Nonnull
     @Override
     public LocalizeValue getGroupDisplayName() {
-        return LocalizeValue.of();
+        return LocalizeValue.empty();
     }
 
     @Override
