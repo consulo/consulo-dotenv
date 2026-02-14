@@ -18,6 +18,7 @@ import ru.adelf.idea.dotenv.grammars.DotEnvLexerAdapter;
 import ru.adelf.idea.dotenv.parser.DotEnvParser;
 import ru.adelf.idea.dotenv.psi.DotEnvFile;
 import ru.adelf.idea.dotenv.psi.DotEnvTypes;
+import ru.adelf.idea.dotenv.psi.impl.DotEnvTypesFactory;
 
 @ExtensionImpl
 public class DotEnvParserDefinition implements ParserDefinition {
@@ -72,6 +73,6 @@ public class DotEnvParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull PsiElement createElement(ASTNode node) {
-        return DotEnvTypes.Factory.createElement(node);
+        return DotEnvTypesFactory.createElement(node);
     }
 }

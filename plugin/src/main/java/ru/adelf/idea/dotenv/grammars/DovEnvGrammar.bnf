@@ -12,8 +12,6 @@
   elementTypeClass="ru.adelf.idea.dotenv.psi.DotEnvElementType"
   tokenTypeClass="ru.adelf.idea.dotenv.psi.DotEnvTokenType"
 
-  version="3"
-
   psiImplUtilClass="ru.adelf.idea.dotenv.psi.DotEnvPsiUtil"
 }
 
