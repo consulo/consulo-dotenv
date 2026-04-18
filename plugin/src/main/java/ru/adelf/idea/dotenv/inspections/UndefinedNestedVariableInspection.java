@@ -9,10 +9,12 @@ import consulo.language.psi.scope.GlobalSearchScope;
 import consulo.language.psi.stub.FileBasedIndex;
 import consulo.localize.LocalizeValue;
 import consulo.virtualFileSystem.VirtualFile;
+import consulo.annotation.component.ExtensionImpl;
 import jakarta.annotation.Nonnull;
 import ru.adelf.idea.dotenv.indexing.DotEnvKeyValuesIndex;
 import ru.adelf.idea.dotenv.psi.DotEnvNestedVariableKey;
 
+@ExtensionImpl
 public class UndefinedNestedVariableInspection extends DotEnvLocalInspectionTool {
 
     @Override

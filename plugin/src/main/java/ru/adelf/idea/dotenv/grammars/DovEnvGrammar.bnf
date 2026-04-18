@@ -22,6 +22,7 @@ private item_ ::= (EXPORT? property|COMMENT|CRLF)
 key ::= KEY_CHARS
 nested_variable_key ::= KEY_CHARS {
     name="property key"
+    mixin="ru.adelf.idea.dotenv.psi.DotEnvNestedVariableKeyMixin"
 }
 
 private quoted_value ::= (NESTED_VARIABLE_START nested_variable_key? NESTED_VARIABLE_END) | VALUE_CHARS

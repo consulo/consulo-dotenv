@@ -15,6 +15,7 @@ import ru.adelf.idea.dotenv.psi.DotEnvProperty;
 
 import java.util.function.Predicate;
 
+@ExtensionImpl
 public class DotEnvReferencesSearcher  extends QueryExecutorBase<PsiReference, ReferencesSearch.SearchParameters> implements ReferencesSearchQueryExecutor {
     public DotEnvReferencesSearcher() {
         super(true);
