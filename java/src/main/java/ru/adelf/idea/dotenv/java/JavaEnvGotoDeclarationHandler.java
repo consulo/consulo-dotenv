@@ -36,10 +36,4 @@ public class JavaEnvGotoDeclarationHandler implements GotoDeclarationHandler {
 
         return EnvironmentVariablesApi.getKeyDeclarations(psiElement.getProject(), (String) value);
     }
-
-    @Nullable
-    @Override
-    public String getActionText(DataContext dataContext) {
-        return null;
-    }
 }
