@@ -13,6 +13,8 @@ module ru.adelf.idea.dotenv {
     requires consulo.configurable.api;
     requires consulo.disposer.api;
     requires consulo.document.api;
+    requires consulo.execution.api;
+    requires consulo.file.chooser.api;
     requires consulo.index.io;
     requires consulo.language.api;
     requires consulo.language.editor.api;
@@ -25,4 +27,6 @@ module ru.adelf.idea.dotenv {
     requires consulo.util.lang;
     requires consulo.util.xml.serializer;
     requires consulo.virtual.file.system.api;
+
+    opens consulo.dotenv.run to consulo.util.xml.serializer, consulo.execution.api;
 }

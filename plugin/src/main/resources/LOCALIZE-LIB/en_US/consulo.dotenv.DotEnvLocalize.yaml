@@ -68,6 +68,20 @@ label.run.file.invalidate.caches.to.update.indices:
     text: Run File > Invalidate Caches... to update the indexes.
 quickfix.name.put.environment.variable.value.inside.quotes:
     text: Put value inside double quotes
+run.configuration.env.file.cannot.read:
+    text: Cannot read environment file {0}
+run.configuration.env.file.not.found:
+    text: Environment file {0} not found
+run.configuration.env.files.add:
+    text: Add .env file
+run.configuration.env.files.browse:
+    text: Select .env File
+run.configuration.env.files.label:
+    text: 'Environment files:'
+run.configuration.env.files.remove:
+    text: Remove
+run.configuration.fragment.env.files:
+    text: Environment files (.env)
 store.and.complete.values:
     text: Store environment values in project indexes
 storing.values.in.the.indices.can.be.turned.off.due.to.security.reasons:
